@@ -6,10 +6,22 @@ export default {
     ["@media (prefers-color-scheme:dark) { &:not(.light *) }", "&:is(.dark *)"],
   ],
   theme: {
+    fontFamily: {
+      sans: ["'Inter'", "sans-serif"],
+      serif: ["'Lora'", "serif"],
+      mono: ["'Inconsolata'", "monospace"],
+    },
+    fontSize: {
+      sm: ["14px", "17px"],
+      base: ["18px", "24px"],
+      lg: ["20px", "24px"],
+      xl: ["24px", "29px"],
+      "2xl": ["64px", "77px"],
+    },
     colors: {
       black: "#050505",
       white: "#FFFFFF",
-      red: "#ff5252",
+      red: "#FF5252",
       purple: "#A445ED",
       gray: {
         800: "#1F1F1F",
@@ -20,7 +32,6 @@ export default {
         200: "#F4F4F4",
       },
     },
-    extend: {},
   },
   plugins: [],
 };
