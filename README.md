@@ -18,24 +18,22 @@ You can use any tools you like to help you complete the challenge. So if you've 
 
 Your users should be able to:
 
-- Search for words using the input field
+- 🆗 Search for words using the input field
 - See the Free Dictionary API's response for the searched word
-- See a form validation message when trying to submit a blank form
+- 🆗 See a form validation message when trying to submit a blank form
 - Play the audio file for a word when it's available
-- Switch between serif, sans serif, and monospace fonts
-- Switch between light and dark themes
+- 🆗 Switch between serif, sans serif, and monospace fonts
+- 🆗 Switch between light and dark themes
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
-- **Bonus**: Have the correct color scheme chosen for them based on their computer preferences. _Hint_: Research `prefers-color-scheme` in CSS.  
-
+- 🆗 **Bonus**: Have the correct color scheme chosen for them based on their computer preferences. _Hint_: Research `prefers-color-scheme` in CSS.
 
 Want some support on the challenge? [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
 
 ## Notes
 
 - The API will sometimes return multiple items for a word, phonetics, and audio file. Choose to handle this however you feel is best.
-- The source URL should open a new window in the browser.  
-
+- The source URL should open a new window in the browser.
 
 ## Where to find everything
 
@@ -57,8 +55,7 @@ Feel free to use any workflow that you feel comfortable with. Below is a suggest
 3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
 4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
 5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.  
-
+6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
 
 ## Deploying your project
 
@@ -66,8 +63,7 @@ As mentioned above, there are many ways to host your project for free. Our recom
 
 - [GitHub Pages](https://pages.github.com/)
 - [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)  
-
+- [Netlify](https://www.netlify.com/)
 
 You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
 
@@ -94,8 +90,7 @@ There are multiple places you can share your solution:
 1. Share your solution page in the **#finished-projects** channel of the [community](https://www.frontendmentor.io/community).
 2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
 3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).  
-
+4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
 
 We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
 
