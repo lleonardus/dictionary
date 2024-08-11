@@ -2,12 +2,22 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Form({ word, setWord, getWordDetails, isDisabled }) {
   const [isBlank, setIsBlank] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
   const inputRef = useRef(null);
+
+  function isValidEnglishWord(word) {
+    const regex = /^[a-zA-Z-]+$/;
+
+    return regex.test(word);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (word.trim() === "") {
       setIsBlank(true);
+      return;
+    } else if (!isValidEnglishWord(word)) {
+      setIsInvalid(true);
       return;
     }
 
@@ -19,6 +29,7 @@ export default function Form({ word, setWord, getWordDetails, isDisabled }) {
   function handleChange(e) {
     setWord(() => e.target.value);
     setIsBlank(false);
+    setIsInvalid(false);
   }
 
   useEffect(function () {
@@ -49,6 +60,7 @@ export default function Form({ word, setWord, getWordDetails, isDisabled }) {
           ref={inputRef}
         />
         {isBlank && <p className="mt-3 text-red">Whoops, can't be empty...</p>}
+        {isInvalid && <p className="mt-3 text-red">Whoops, invalid word...</p>}
       </div>
     </form>
   );
