@@ -25,7 +25,7 @@ Your users should be able to:
 - 🆗 Switch between serif, sans serif, and monospace fonts
 - 🆗 Switch between light and dark themes
 - 🆗 View the optimal layout for the interface depending on their device's screen size
-- 🔄 See hover and focus states for all interactive elements on the page
+- 🆗 See hover and focus states for all interactive elements on the page
 - 🆗 **Bonus**: Have the correct color scheme chosen for them based on their computer preferences. _Hint_: Research `prefers-color-scheme` in CSS.
 
 Want some support on the challenge? [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.

@@ -3,6 +3,7 @@ import Container from "./components/Container";
 import Header from "./components/Header";
 import Form from "./components/Form";
 import WordDetails from "./components/WordDetails";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [word, setWord] = useState(
@@ -39,13 +40,13 @@ function App() {
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(function () {
+  useEffect(function() {
     if (word.trim() === "") return;
 
     getWordDetails();
   }, []);
 
-  useEffect(function () {
+  useEffect(function() {
     function handlePopState() {
       const path = window.location.pathname;
       setWord(path.split("/")[1] || "");
@@ -74,7 +75,7 @@ function App() {
           </section>
           <section>
             {isLoading && <p>Loading...</p>}
-            {errorMessage && <p>Not found!</p>}
+            {errorMessage && <NotFound errorMessage={errorMessage} />}
             {wordDetails && <WordDetails wordDetails={wordDetails} />}
           </section>
         </main>
