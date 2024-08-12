@@ -63,7 +63,7 @@ export default function WordDetails({ wordDetails }) {
               return (
                 <li
                   key={index}
-                  className="relative pl-5 before:absolute before:left-1 before:top-2.5 before:h-1 before:w-1 before:rounded-full before:bg-purple"
+                  className="relative pl-5 text-gray-700 before:absolute before:left-1 before:top-2.5 before:h-1 before:w-1 before:rounded-full before:bg-purple dark:text-white"
                 >
                   {item.definition}
                 </li>
