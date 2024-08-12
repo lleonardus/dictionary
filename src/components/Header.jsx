@@ -26,15 +26,9 @@ export default function Header() {
   useEffect(
     function () {
       const htmlElement = document.documentElement;
-      if (theme === "dark") {
-        htmlElement.classList.add("dark");
-        htmlElement.classList.remove("light");
-        localStorage.setItem("theme", "dark");
-      } else {
-        htmlElement.classList.add("light");
-        htmlElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
+      htmlElement.classList.add(theme);
+      htmlElement.classList.remove(theme === "light" ? "dark" : "light");
+      localStorage.setItem("theme", theme);
     },
     [theme],
   );
