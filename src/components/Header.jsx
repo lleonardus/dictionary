@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Header({ fontFamily, setFontFamily }) {
+export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [fontFamily, setFontFamily] = useState({
+    name: "Sans Serif",
+    tailwindName: "sans",
+  });
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
 
@@ -21,18 +25,36 @@ export default function Header({ fontFamily, setFontFamily }) {
 
   useEffect(
     function () {
+      const htmlElement = document.documentElement;
       if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-        document.documentElement.classList.remove("light");
+        htmlElement.classList.add("dark");
+        htmlElement.classList.remove("light");
         localStorage.setItem("theme", "dark");
       } else {
-        document.documentElement.classList.add("light");
-        document.documentElement.classList.remove("dark");
+        htmlElement.classList.add("light");
+        htmlElement.classList.remove("dark");
         localStorage.setItem("theme", "light");
       }
     },
     [theme],
   );
+
+  useEffect(
+    function () {
+      const htmlElement = document.documentElement;
+      const regex = /font-/;
+
+      htmlElement.classList.forEach((className) => {
+        if (regex.test(className)) {
+          htmlElement.classList.remove(className);
+        }
+      });
+
+      htmlElement.classList.add(`font-${fontFamily.tailwindName}`);
+    },
+    [fontFamily],
+  );
+
   return (
     <header className="flex items-center justify-between">
       <div>

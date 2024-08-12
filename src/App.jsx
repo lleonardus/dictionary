@@ -14,10 +14,6 @@ function App() {
   const [wordDetails, setWordDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [fontFamily, setFontFamily] = useState({
-    name: "Sans Serif",
-    tailwindName: "sans",
-  });
 
   async function getWordDetails() {
     setIsLoading(true);
@@ -61,11 +57,9 @@ function App() {
   }, []);
 
   return (
-    <div
-      className={`h-full min-h-screen w-screen bg-white pb-24 text-sm text-black sm:text-base dark:bg-black dark:text-white font-${fontFamily.tailwindName}`}
-    >
+    <div className="h-full min-h-screen w-screen bg-white pb-24 text-sm text-black sm:text-base dark:bg-black dark:text-white">
       <Container>
-        <Header fontFamily={fontFamily} setFontFamily={setFontFamily} />
+        <Header />
         <main className="mt-6 space-y-8 sm:mt-[51px]">
           <section>
             <Form
