@@ -1,4 +1,4 @@
-export default function NotFound({ errorMessage }) {
+export default function ErrorMessage({ errorMessage }) {
   return (
     <div className="pt-14 text-center sm:pt-32">
       <div className="pb-10 text-2xl">😕</div>

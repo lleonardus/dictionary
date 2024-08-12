@@ -3,7 +3,7 @@ import Container from "./components/Container";
 import Header from "./components/Header";
 import Form from "./components/Form";
 import WordDetails from "./components/WordDetails";
-import NotFound from "./components/NotFound";
+import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
   const [word, setWord] = useState(
@@ -75,7 +75,7 @@ function App() {
           </section>
           <section>
             {isLoading && <p>Loading...</p>}
-            {errorMessage && <NotFound errorMessage={errorMessage} />}
+            {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
             {wordDetails && <WordDetails wordDetails={wordDetails} />}
           </section>
         </main>
