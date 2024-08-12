@@ -19,7 +19,6 @@ function App() {
 
   async function getWordDetails() {
     setIsLoading(true);
-    setErrorMessage(null);
 
     const response = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
@@ -28,25 +27,26 @@ function App() {
 
     setIsLoading(false);
 
-    if (response.status === 404) {
+    if (response.status !== 200) {
       setErrorMessage({
         title: data.title,
         message: `${data.message} ${data.resolution}`,
       });
       setWordDetails(null);
     } else {
+      setErrorMessage(null);
       setWordDetails(data[0]);
     }
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(function() {
+  useEffect(function () {
     if (word.trim() === "") return;
 
     getWordDetails();
   }, []);
 
-  useEffect(function() {
+  useEffect(function () {
     function handlePopState() {
       const path = window.location.pathname;
       setWord(path.split("/")[1] || "");
