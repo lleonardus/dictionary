@@ -6,9 +6,11 @@ import WordDetails from "./components/WordDetails";
 import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
-  const [word, setWord] = useState(
-    window.location.pathname.split("/")[1] || "",
-  );
+  const [word, setWord] = useState(() => {
+    const wordToSearch = window.location.pathname.split("/")[1];
+
+    return wordToSearch.replace("%20", " ") || "";
+  });
   const [wordDetails, setWordDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -48,8 +50,8 @@ function App() {
 
   useEffect(function () {
     function handlePopState() {
-      const path = window.location.pathname;
-      setWord(path.split("/")[1] || "");
+      const wordToSearch = window.location.pathname.split("/")[1];
+      setWord(() => wordToSearch.replace("%20", " ") || "");
     }
 
     window.addEventListener("popstate", handlePopState);
