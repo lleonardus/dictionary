@@ -6,7 +6,7 @@ export default function Form({ word, setWord, getWordDetails, isDisabled }) {
   const inputRef = useRef(null);
 
   function isValidEnglishWord(word) {
-    const regex = /^[a-zA-Z-]+$/;
+    const regex = /^[a-zA-Z- ]+$/;
 
     return regex.test(word);
   }
