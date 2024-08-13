@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+// Ajeitar z-index
+
 export default function Form({ word, setWord, getWordDetails, isDisabled }) {
   const [isBlank, setIsBlank] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
@@ -49,7 +51,7 @@ export default function Form({ word, setWord, getWordDetails, isDisabled }) {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <div className="relative">
+      <div>
         <input
           className={`h-12 w-full cursor-pointer rounded-2xl border bg-gray-200 bg-[url('/images/icon-search.svg')] bg-[center_right_24px] bg-no-repeat px-6 text-base font-bold caret-purple outline-none placeholder:text-gray-500 sm:h-16 sm:text-lg dark:bg-gray-800 ${isBlank || isInvalid ? "border-red" : "border-[transparent] hover:border-purple focus:border-purple"} ${isDisabled ? "cursor-wait" : ""}`}
           type="text"
@@ -59,7 +61,7 @@ export default function Form({ word, setWord, getWordDetails, isDisabled }) {
           onChange={(e) => handleChange(e)}
           ref={inputRef}
         />
-        <p className="absolute mt-1.5 text-red">
+        <p className="z-1 absolute mt-1.5 text-red">
           {isBlank && "Whoops, can't be empty..."}
           {isInvalid && "Whoops, invalid word..."}
         </p>

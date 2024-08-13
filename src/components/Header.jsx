@@ -24,7 +24,7 @@ export default function Header() {
   }
 
   useEffect(
-    function () {
+    function() {
       const htmlElement = document.documentElement;
       htmlElement.classList.add(theme);
       htmlElement.classList.remove(theme === "light" ? "dark" : "light");
@@ -34,7 +34,7 @@ export default function Header() {
   );
 
   useEffect(
-    function () {
+    function() {
       const htmlElement = document.documentElement;
       const regex = /font-/;
 
@@ -50,7 +50,7 @@ export default function Header() {
   );
 
   return (
-    <header className="flex items-center justify-between">
+    <header className="relative z-10 flex items-center justify-between">
       <div>
         <img src="./images/logo.svg" alt="logo" />
       </div>
