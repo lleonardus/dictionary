@@ -1,13 +1,33 @@
 import { useRef } from "react";
+import ListOfMeanings from "./ListOfMeanings";
 
 export default function WordDetails({ wordDetails }) {
   const audioRef = useRef(null);
-  const audio = wordDetails.phonetics.filter(
-    (item) => item.audio !== "" && item.text,
-  )[0];
+  const audio = wordDetails.phonetics.filter((item) => item.audio)[0];
   const audioUrl = audio?.audio;
   const phonetics = audio?.text;
   const isAudioAvailable = audioUrl !== undefined;
+  const meanings = wordDetails.meanings.reduce((acc, current) => {
+    const existing = acc.find(
+      (item) => item.partOfSpeech === current.partOfSpeech,
+    );
+
+    if (existing) {
+      existing.definitions = [
+        ...new Set([...existing.definitions, ...current.definitions]),
+      ];
+      existing.synonyms = [
+        ...new Set([...existing.synonyms, ...current.synonyms]),
+      ];
+      existing.antonyms = [
+        ...new Set([...existing.antonyms, ...current.antonyms]),
+      ];
+    } else {
+      acc.push({ ...current });
+    }
+
+    return acc;
+  }, []);
 
   function handlePlayAudio() {
     if (audioRef.current) {
@@ -52,69 +72,10 @@ export default function WordDetails({ wordDetails }) {
         </button>
         <audio ref={audioRef} src={`${audioUrl}`} />
       </div>
-      <div>
-        <h2 className="relative mt-10 overflow-hidden text-base font-bold italic after:absolute after:-right-14 after:top-[50%] after:h-[1px] after:w-full after:translate-y-[50%] after:bg-gray-400 sm:mt-14 sm:text-xl sm:after:-right-20 dark:after:bg-gray-600">
-          noun
-        </h2>
-        <div className="mt-9 space-y-8 sm:mt-12">
-          <h3 className="text-base font-normal text-gray-500">Meaning</h3>
-          <ul className="space-y-6 text-base">
-            {wordDetails.meanings[0].definitions.map((item, index) => {
-              return (
-                <li
-                  key={index}
-                  className="relative pl-5 text-gray-700 before:absolute before:left-1 before:top-2.5 before:h-1 before:w-1 before:rounded-full before:bg-purple dark:text-white"
-                >
-                  {item.definition}
-                </li>
-              );
-            })}
-          </ul>
-          {wordDetails.meanings[0].synonyms.length > 0 && (
-            <div className="flex gap-6">
-              <h3 className="text-base font-normal text-gray-500">Synonyms</h3>
-              <p>
-                {wordDetails.meanings[0].synonyms.map(
-                  (synonym, index, array) => (
-                    <span key={index}>
-                      <span className="cursor-pointer text-base font-bold text-purple hover:underline">
-                        {synonym}
-                      </span>
-                      {index < array.length - 1 ? ", " : ""}
-                    </span>
-                  ),
-                )}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
       <div className="border-b border-gray-400 pb-10 sm:pb-11 dark:border-gray-600">
-        {wordDetails.meanings.length > 1 && (
-          <>
-            <h2 className="relative mt-10 overflow-hidden text-base font-bold italic after:absolute after:-right-14 after:top-[50%] after:h-[1px] after:w-full after:translate-y-[50%] after:bg-gray-400 sm:mt-14 sm:text-xl sm:after:-right-20 dark:after:bg-gray-600">
-              verb
-            </h2>
-            <div className="mt-9 space-y-8 sm:mt-12">
-              <h3 className="text-base font-normal text-gray-500">Meaning</h3>
-              <ul className="space-y-6 text-base">
-                {wordDetails.meanings[1].definitions.map((item, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="relative space-y-[26px] pl-5 before:absolute before:left-1 before:top-2.5 before:h-1 before:w-1 before:rounded-full before:bg-purple sm:space-y-6"
-                    >
-                      <p className="text-gray-700 dark:text-white">
-                        {item.definition}
-                      </p>
-                      <p className="text-gray-500">{item.example}</p>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </>
-        )}
+        {meanings.map((meanings, index) => {
+          return <ListOfMeanings key={index} meanings={meanings} />;
+        })}
       </div>
       <div className="flex flex-col gap-3 pt-8 underline-offset-2 sm:flex-row sm:pt-6">
         <p className="text-gray-500 underline decoration-gray-500">Source</p>
