@@ -81,7 +81,7 @@ export default function WordDetails({ wordDetails }) {
         <p className="text-gray-500 underline decoration-gray-500">Source</p>
         <span className="flex items-center gap-[10px] underline decoration-black dark:decoration-white">
           <a
-            className="overflow-hidden text-ellipsis whitespace-nowrap"
+            className="overflow-hidden text-ellipsis whitespace-nowrap text-gray-700 dark:text-white"
             href={wordDetails.sourceUrls[0]}
             target="_blank"
           >
