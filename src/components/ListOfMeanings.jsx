@@ -1,11 +1,11 @@
 export default function ListOfMeanings({ meanings }) {
   return (
     <>
-      <div className="flex items-center gap-7">
-        <h2 className="mt-10 text-base font-bold italic sm:mt-14 sm:text-xl sm:after:-right-20 dark:after:bg-gray-600">
+      <div className="flex items-center gap-7 pt-10 sm:pt-14">
+        <h2 className="text-base font-bold italic sm:text-xl sm:after:-right-20 dark:after:bg-gray-600">
           {meanings.partOfSpeech}
         </h2>
-        <div className="h-[1px] w-full bg-gray-400 sm:mt-14 sm:text-xl dark:bg-gray-600"></div>
+        <div className="h-[1px] w-full bg-gray-400 dark:bg-gray-600"></div>
       </div>
       <div className="mt-9 space-y-8 sm:mt-12">
         <h3 className="text-base font-normal text-gray-500">Meaning</h3>
@@ -28,7 +28,7 @@ export default function ListOfMeanings({ meanings }) {
           <div className="flex gap-6">
             <h3 className="text-base font-normal text-gray-500">Synonyms</h3>
             <p>
-              {meanings.synonyms.map((synonym, index, array) => (
+              {[...new Set(meanings.synonyms)].map((synonym, index, array) => (
                 <span key={index}>
                   <span className="cursor-pointer text-base font-bold text-purple hover:underline">
                     {synonym}
