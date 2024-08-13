@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Form from "./components/Form";
 import WordDetails from "./components/WordDetails";
 import ErrorMessage from "./components/ErrorMessage";
+import Loader from "./components/Loader";
 
 function App() {
   const [word, setWord] = useState(() => {
@@ -38,13 +39,13 @@ function App() {
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(function () {
+  useEffect(function() {
     if (word.trim() === "") return;
 
     getWordDetails();
   }, []);
 
-  useEffect(function () {
+  useEffect(function() {
     function handlePopState() {
       const wordToSearch = window.location.pathname.split("/")[1];
       setWord(() => wordToSearch.replace("%20", " ") || "");
@@ -57,7 +58,7 @@ function App() {
   }, []);
 
   return (
-    <div className="h-full min-h-screen w-screen bg-white pb-24 text-sm text-black sm:text-base dark:bg-black dark:text-white">
+    <div className="relative h-full min-h-screen w-screen bg-white pb-24 text-sm text-black sm:text-base dark:bg-black dark:text-white">
       <Container>
         <Header />
         <main className="mt-6 space-y-8 sm:mt-[51px]">
@@ -70,7 +71,7 @@ function App() {
             />
           </section>
           <section>
-            {isLoading && <p>Loading...</p>}
+            {isLoading && <Loader />}
             {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
             {wordDetails && <WordDetails wordDetails={wordDetails} />}
           </section>
