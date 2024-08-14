@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Form({ word, setWord, getWordDetails, isDisabled }) {
+export default function Form({ setWord, isDisabled }) {
+  const [searchTerm, setSearchTerm] = useState("");
   const [isBlank, setIsBlank] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
   const inputRef = useRef(null);
@@ -13,21 +14,19 @@ export default function Form({ word, setWord, getWordDetails, isDisabled }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (word.trim() === "") {
+    if (searchTerm.trim() === "") {
       setIsBlank(true);
       return;
-    } else if (!isValidEnglishWord(word)) {
+    } else if (!isValidEnglishWord(searchTerm)) {
       setIsInvalid(true);
       return;
     }
 
-    getWordDetails();
-
-    window.history.pushState({ parameter: word }, "", `/${word}`);
+    setWord(searchTerm);
   }
 
   function handleChange(e) {
-    setWord(() => e.target.value);
+    setSearchTerm(() => e.target.value);
     setIsBlank(false);
     setIsInvalid(false);
   }
@@ -55,7 +54,7 @@ export default function Form({ word, setWord, getWordDetails, isDisabled }) {
           type="text"
           placeholder="Search for any word..."
           disabled={isDisabled}
-          value={word}
+          value={searchTerm}
           onChange={(e) => handleChange(e)}
           ref={inputRef}
         />
