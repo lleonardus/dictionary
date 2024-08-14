@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
-// Ajeitar z-index
-
 export default function Form({ word, setWord, getWordDetails, isDisabled }) {
   const [isBlank, setIsBlank] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
   const inputRef = useRef(null);
 
   function isValidEnglishWord(word) {
-    const regex = /^[a-zA-Z- ]+$/;
+    const regex = /^[a-zA-Z-' ]+$/;
 
     return regex.test(word);
   }
