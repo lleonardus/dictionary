@@ -5,9 +5,10 @@ import Form from "./components/Form";
 import WordDetails from "./components/WordDetails";
 import ErrorMessage from "./components/ErrorMessage";
 import Loader from "./components/Loader";
+import { getUrlWord } from "./utils/utils";
 
 function App() {
-  const [word, setWord] = useState("");
+  const [word, setWord] = useState(getUrlWord);
   const [wordDetails, setWordDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -24,24 +25,46 @@ function App() {
 
         setIsLoading(false);
 
-        if (response.status !== 200) {
+        if (response.ok) {
+          setWordDetails(data[0]);
+          setErrorMessage(null);
+        } else {
+          setWordDetails(null);
           setErrorMessage({
             title: data.title,
             message: `${data.message} ${data.resolution}`,
           });
-          setWordDetails(null);
-        } else {
-          setErrorMessage(null);
-          setWordDetails(data[0]);
+        }
+
+        const path = window.location.pathname;
+        const urlWord = path.split("/")[1] || "";
+        if (urlWord !== word) {
+          window.history.pushState({}, "", `/${word}`);
         }
       }
 
-      if (word.trim() === "") return;
+      if (word.trim() === "") {
+        setWordDetails(null);
+        return;
+      }
 
       getWordDetails();
     },
     [word],
   );
+
+  useEffect(function() {
+    function handlePopState() {
+      const newWord = getUrlWord();
+      setWord(newWord);
+    }
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   return (
     <div className="relative h-full min-h-screen w-screen bg-white pb-24 text-sm text-black sm:text-base dark:bg-black dark:text-white">

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { getUrlWord } from "../utils/utils";
 
 export default function Form({ setWord, isDisabled }) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(getUrlWord);
   const [isBlank, setIsBlank] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
   const inputRef = useRef(null);
@@ -44,6 +45,19 @@ export default function Form({ setWord, isDisabled }) {
     document.addEventListener("keydown", handleKeyDown);
 
     return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(function() {
+    function handlePopState() {
+      const newWord = getUrlWord();
+      setSearchTerm(newWord);
+    }
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, []);
 
   return (
