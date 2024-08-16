@@ -5,6 +5,7 @@ import Form from "./components/Form";
 import WordDetails from "./components/WordDetails";
 import ErrorMessage from "./components/ErrorMessage";
 import Loader from "./components/Loader";
+import Footer from "./components/Footer";
 import { getUrlWord } from "./utils/utils";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(
-    function() {
+    function () {
       async function getWordDetails() {
         setIsLoading(true);
 
@@ -38,7 +39,7 @@ function App() {
 
         const path = window.location.pathname;
         const urlWord = path.split("/")[1] || "";
-        if (urlWord !== word) {
+        if (decodeURIComponent(urlWord) !== word) {
           window.history.pushState({}, "", `/${word}`);
         }
       }
@@ -53,7 +54,7 @@ function App() {
     [word],
   );
 
-  useEffect(function() {
+  useEffect(function () {
     function handlePopState() {
       const newWord = getUrlWord();
       setWord(newWord);
@@ -80,6 +81,7 @@ function App() {
             {wordDetails && <WordDetails wordDetails={wordDetails} />}
           </section>
         </main>
+        {wordDetails && <Footer sourceUrl={wordDetails.sourceUrls[0]} />}
       </Container>
     </div>
   );
