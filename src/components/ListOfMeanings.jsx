@@ -2,7 +2,7 @@ export default function ListOfMeanings({ meanings }) {
   return (
     <>
       <div className="flex items-center gap-7 pt-10 sm:pt-14">
-        <h2 className="text-base font-bold italic sm:text-xl sm:after:-right-20 dark:after:bg-gray-600">
+        <h2 className="whitespace-nowrap text-base font-bold italic sm:text-xl sm:after:-right-20 dark:after:bg-gray-600">
           {meanings.partOfSpeech}
         </h2>
         <div className="h-[1px] w-full bg-gray-400 dark:bg-gray-600"></div>
