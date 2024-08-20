@@ -7,7 +7,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ["'Inter'", "sans-serif"],
+      "sans-serif": ["'Inter'", "sans-serif"],
       serif: ["'Lora'", "serif"],
       mono: ["'Inconsolata'", "monospace"],
     },

@@ -3,10 +3,12 @@ import { getUrlWord } from "../utils/utils";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [fontFamily, setFontFamily] = useState({
-    name: "Sans Serif",
-    tailwindName: "sans",
+
+  const [fontFamily, setFontFamily] = useState(() => {
+    const storedFont = localStorage.getItem("fontFamily");
+    return storedFont || "sans-serif";
   });
+
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
 
@@ -53,7 +55,8 @@ export default function Header() {
         }
       });
 
-      htmlElement.classList.add(`font-${fontFamily.tailwindName}`);
+      htmlElement.classList.add(`font-${fontFamily}`);
+      localStorage.setItem("fontFamily", fontFamily);
     },
     [fontFamily],
   );
@@ -66,35 +69,29 @@ export default function Header() {
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="relative border-r border-gray-400 pr-4 font-bold sm:pr-6">
           <div
-            className="flex cursor-pointer gap-5"
+            className="flex cursor-pointer gap-5 capitalize"
             onClick={() => setIsOpen((isOpen) => !isOpen)}
           >
-            <span>{fontFamily.name}</span>
+            <span>{fontFamily.replace("-", " ")}</span>
             <img src="./images/icon-arrow-down.svg" alt="arrow down" />
           </div>
           <ul
             className={`absolute right-4 mt-5 flex flex-col gap-4 rounded-2xl bg-white py-6 pl-6 pr-20 font-mono shadow-md drop-shadow *:cursor-pointer sm:right-5 dark:bg-gray-800 dark:shadow-[0px_0px_30px_0px_rgba(164,69,237,1)] ${!isOpen ? "hidden" : ""}`}
           >
             <li
-              onClick={() =>
-                setFontFamily({ name: "Sans Serif", tailwindName: "sans" })
-              }
-              className="w-max font-sans hover:text-purple"
+              onClick={() => setFontFamily("sans-serif")}
+              className="w-max font-sans-serif hover:text-purple"
             >
               Sans Serif
             </li>
             <li
-              onClick={() =>
-                setFontFamily({ name: "Serif", tailwindName: "serif" })
-              }
+              onClick={() => setFontFamily("serif")}
               className="w-max font-serif hover:text-purple"
             >
               Serif
             </li>
             <li
-              onClick={() =>
-                setFontFamily({ name: "Mono", tailwindName: "mono" })
-              }
+              onClick={() => setFontFamily("mono")}
               className="w-max font-mono hover:text-purple"
             >
               Mono
