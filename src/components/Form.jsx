@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { getUrlWord } from "../utils/utils";
 
-export default function Form({ setWord, isDisabled }) {
-  const [searchTerm, setSearchTerm] = useState(getUrlWord);
+export default function Form({ word, setWord, isDisabled }) {
+  const [searchTerm, setSearchTerm] = useState("");
   const [isBlank, setIsBlank] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
   const inputRef = useRef(null);
@@ -32,6 +31,8 @@ export default function Form({ setWord, isDisabled }) {
     setIsInvalid(false);
   }
 
+  useEffect(() => setSearchTerm(word), [word]);
+
   useEffect(function() {
     function handleKeyDown(e) {
       if (e.key === "/" && document.activeElement !== inputRef.current) {
@@ -47,19 +48,6 @@ export default function Form({ setWord, isDisabled }) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  useEffect(function() {
-    function handlePopState() {
-      const newWord = getUrlWord();
-      setSearchTerm(newWord);
-    }
-
-    window.addEventListener("popstate", handlePopState);
-
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
-
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div>
@@ -69,7 +57,7 @@ export default function Form({ setWord, isDisabled }) {
           placeholder="Search for any word..."
           disabled={isDisabled}
           value={searchTerm}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           ref={inputRef}
         />
         <p className="z-1 absolute mt-1.5 text-red">

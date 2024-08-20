@@ -15,7 +15,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(
-    function () {
+    function() {
       async function getWordDetails() {
         setIsLoading(true);
 
@@ -54,7 +54,7 @@ function App() {
     [word],
   );
 
-  useEffect(function () {
+  useEffect(function() {
     function handlePopState() {
       const newWord = getUrlWord();
       setWord(newWord);
@@ -73,7 +73,7 @@ function App() {
         <Header />
         <main className="mt-6 space-y-8 sm:mt-[51px]">
           <section>
-            <Form setWord={setWord} isDisabled={isLoading} />
+            <Form word={word} setWord={setWord} isDisabled={isLoading} />
           </section>
           <section>
             {isLoading && <Loader />}
