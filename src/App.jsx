@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getUrlWord } from "./utils/utils";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import Form from "./components/Form";
@@ -6,7 +7,6 @@ import WordDetails from "./components/WordDetails";
 import ErrorMessage from "./components/ErrorMessage";
 import Loader from "./components/Loader";
 import Footer from "./components/Footer";
-import { getUrlWord } from "./utils/utils";
 
 function App() {
   const [word, setWord] = useState(getUrlWord);
@@ -46,6 +46,7 @@ function App() {
 
       if (word.trim() === "") {
         setWordDetails(null);
+        setErrorMessage(null);
         return;
       }
 
@@ -56,8 +57,7 @@ function App() {
 
   useEffect(function() {
     function handlePopState() {
-      const newWord = getUrlWord();
-      setWord(newWord);
+      setWord(getUrlWord());
     }
 
     window.addEventListener("popstate", handlePopState);

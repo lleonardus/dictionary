@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getUrlWord } from "../utils/utils";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +21,15 @@ export default function Header() {
 
   function handleTheme() {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
+  }
+
+  function clearSearch(e) {
+    e.preventDefault();
+    if (!getUrlWord()) return;
+
+    window.history.pushState(null, "", "/");
+    const popStateEvent = new PopStateEvent("popstate");
+    window.dispatchEvent(popStateEvent);
   }
 
   useEffect(
@@ -51,9 +60,9 @@ export default function Header() {
 
   return (
     <header className="relative z-10 flex items-center justify-between">
-      <div>
+      <a href="/" onClick={clearSearch}>
         <img src="./images/logo.svg" alt="logo" />
-      </div>
+      </a>
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="relative border-r border-gray-400 pr-4 font-bold sm:pr-6">
           <div
