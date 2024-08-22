@@ -14,6 +14,30 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  function mergeWordList(wordList) {
+    if (wordList.length === 1) return wordList[0];
+
+    const initialObject = {
+      word: wordList[0].word,
+      phonetic: "",
+      phonetics: [],
+      meanings: [],
+      sourceUrls: [],
+    };
+
+    return wordList.reduce((acc, current) => {
+      if (!acc.phonetic && current.phonetic) acc.phonetic = current.phonetic;
+
+      acc.phonetics = [...acc.phonetics, ...current.phonetics];
+      acc.meanings = [...acc.meanings, ...current.meanings];
+      acc.sourceUrls = Array.from(
+        new Set([...acc.sourceUrls, ...current.sourceUrls]),
+      );
+
+      return acc;
+    }, initialObject);
+  }
+
   useEffect(
     function() {
       async function getWordDetails() {
@@ -27,7 +51,7 @@ function App() {
         setIsLoading(false);
 
         if (response.ok) {
-          setWordDetails(data[0]);
+          setWordDetails(mergeWordList(data));
           setErrorMessage(null);
         } else {
           setWordDetails(null);
@@ -37,9 +61,7 @@ function App() {
           });
         }
 
-        const path = window.location.pathname;
-        const urlWord = path.split("/")[1] || "";
-        if (decodeURIComponent(urlWord) !== word) {
+        if (getUrlWord() !== word) {
           window.history.pushState({}, "", `/${word}`);
         }
       }
@@ -81,7 +103,7 @@ function App() {
             {wordDetails && <WordDetails wordDetails={wordDetails} />}
           </section>
         </main>
-        {wordDetails && <Footer sourceUrl={wordDetails.sourceUrls[0]} />}
+        {wordDetails && <Footer sourceUrls={wordDetails.sourceUrls} />}
       </Container>
     </div>
   );
