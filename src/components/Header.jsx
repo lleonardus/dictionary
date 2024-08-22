@@ -64,7 +64,7 @@ export default function Header() {
   return (
     <header className="relative z-10 flex items-center justify-between">
       <a href="/" onClick={clearSearch}>
-        <img src="./images/logo.svg" alt="logo" />
+        <img src="/images/logo.svg" alt="logo" />
       </a>
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="relative border-r border-gray-400 pr-4 font-bold sm:pr-6">
@@ -73,7 +73,7 @@ export default function Header() {
             onClick={() => setIsOpen((isOpen) => !isOpen)}
           >
             <span>{fontFamily.replace("-", " ")}</span>
-            <img src="./images/icon-arrow-down.svg" alt="arrow down" />
+            <img src="/images/icon-arrow-down.svg" alt="arrow down" />
           </div>
           <ul
             className={`absolute right-4 mt-5 flex flex-col gap-4 rounded-2xl bg-white py-6 pl-6 pr-20 font-mono shadow-md drop-shadow *:cursor-pointer sm:right-5 dark:bg-gray-800 dark:shadow-[0px_0px_30px_0px_rgba(164,69,237,1)] ${!isOpen ? "hidden" : ""}`}
