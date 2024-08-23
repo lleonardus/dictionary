@@ -68,7 +68,7 @@ function App() {
   }
 
   useEffect(
-    function () {
+    function() {
       async function fetchAndCacheWordDetails() {
         setIsLoading(true);
 
@@ -110,7 +110,18 @@ function App() {
     [word],
   );
 
-  useEffect(function () {
+  useEffect(
+    function() {
+      const titleElement = document.getElementsByTagName("title")[0];
+      const defaultTitle = "Dictionary";
+      const titleWithWord = `${defaultTitle} | ${word.charAt(0).toUpperCase() + word.slice(1)}`;
+
+      titleElement.text = word ? titleWithWord : defaultTitle;
+    },
+    [word],
+  );
+
+  useEffect(function() {
     function handlePopState() {
       setWord(getUrlWord());
     }
