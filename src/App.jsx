@@ -15,6 +15,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   function mergeWordList(wordList) {
+    if (wordList?.title) return null;
     if (wordList.length === 1) return wordList[0];
 
     const initialObject = {
@@ -38,9 +39,37 @@ function App() {
     }, initialObject);
   }
 
+  function updateUrl(word) {
+    if (getUrlWord() !== word) {
+      window.history.pushState(null, "", `/${word}`);
+    }
+  }
+
+  function isWordEmpty(word) {
+    if (word.trim() === "") {
+      setWordDetails(null);
+      setErrorMessage(null);
+      return true;
+    }
+    return false;
+  }
+
+  function updateStateFromCache(storagedWord) {
+    if (storagedWord?.word) {
+      setErrorMessage(null);
+      setWordDetails(storagedWord);
+    } else if (storagedWord?.title) {
+      setWordDetails(null);
+      setErrorMessage({
+        title: storagedWord.title,
+        message: `${storagedWord.message} ${storagedWord.resolution}`,
+      });
+    }
+  }
+
   useEffect(
-    function() {
-      async function getWordDetails() {
+    function () {
+      async function fetchAndCacheWordDetails() {
         setIsLoading(true);
 
         const response = await fetch(
@@ -50,8 +79,10 @@ function App() {
 
         setIsLoading(false);
 
+        const mergedWordList = mergeWordList(data);
+
         if (response.ok) {
-          setWordDetails(mergeWordList(data));
+          setWordDetails(mergedWordList);
           setErrorMessage(null);
         } else {
           setWordDetails(null);
@@ -61,23 +92,25 @@ function App() {
           });
         }
 
-        if (getUrlWord() !== word) {
-          window.history.pushState({}, "", `/${word}`);
-        }
+        sessionStorage.setItem(word, JSON.stringify(mergedWordList ?? data));
+
+        updateUrl(word);
       }
 
-      if (word.trim() === "") {
-        setWordDetails(null);
-        setErrorMessage(null);
-        return;
-      }
+      if (isWordEmpty(word)) return;
 
-      getWordDetails();
+      const storagedWord = JSON.parse(sessionStorage.getItem(word));
+
+      if (storagedWord) {
+        updateStateFromCache(storagedWord);
+      } else {
+        fetchAndCacheWordDetails();
+      }
     },
     [word],
   );
 
-  useEffect(function() {
+  useEffect(function () {
     function handlePopState() {
       setWord(getUrlWord());
     }
