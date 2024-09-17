@@ -21,20 +21,20 @@ export default function WordDetails({ wordDetails }) {
 
   const phonetics = audioWithText ? audioWithText.text : "";
   const meanings = wordDetails.meanings.reduce((acc, current) => {
-    const existing = acc.find(
+    const repeatedPartOfSpeech = acc.find(
       (item) => item.partOfSpeech === current.partOfSpeech,
     );
 
-    if (existing) {
-      existing.definitions = [
-        ...new Set([...existing.definitions, ...current.definitions]),
-      ];
-      existing.synonyms = [
-        ...new Set([...existing.synonyms, ...current.synonyms]),
-      ];
-      existing.antonyms = [
-        ...new Set([...existing.antonyms, ...current.antonyms]),
-      ];
+    if (repeatedPartOfSpeech) {
+      repeatedPartOfSpeech.definitions = Array.from(
+        new Set([...repeatedPartOfSpeech.definitions, ...current.definitions]),
+      );
+      repeatedPartOfSpeech.synonyms = Array.from(
+        new Set([...repeatedPartOfSpeech.synonyms, ...current.synonyms]),
+      );
+      repeatedPartOfSpeech.antonyms = Array.from(
+        new Set([...repeatedPartOfSpeech.antonyms, ...current.antonyms]),
+      );
     } else {
       acc.push({ ...current });
     }

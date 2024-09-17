@@ -28,14 +28,16 @@ export default function ListOfMeanings({ meanings }) {
           <div className="flex gap-6">
             <h3 className="text-base font-normal text-gray-500">Synonyms</h3>
             <p>
-              {[...new Set(meanings.synonyms)].map((synonym, index, array) => (
-                <span key={index}>
-                  <span className="cursor-pointer text-base font-bold text-purple hover:underline">
-                    {synonym}
+              {Array.from(new Set(meanings.synonyms)).map(
+                (synonym, index, array) => (
+                  <span key={index}>
+                    <span className="cursor-pointer text-base font-bold text-purple hover:underline">
+                      {synonym}
+                    </span>
+                    {index < array.length - 1 ? ", " : ""}
                   </span>
-                  {index < array.length - 1 ? ", " : ""}
-                </span>
-              ))}
+                ),
+              )}
             </p>
           </div>
         )}
