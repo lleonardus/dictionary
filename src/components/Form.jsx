@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-//TODO diminuir o tamanho da font no modo mobile (conferir quando voltar)
-
 export default function Form({ word, setWord, isDisabled }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isBlank, setIsBlank] = useState(false);
@@ -35,7 +33,7 @@ export default function Form({ word, setWord, isDisabled }) {
 
   useEffect(() => setSearchTerm(word), [word]);
 
-  useEffect(function() {
+  useEffect(function () {
     function handleKeyDown(e) {
       if (e.key === "/" && document.activeElement !== inputRef.current) {
         e.preventDefault();
